@@ -25,8 +25,24 @@ class CategorysMigration extends AbstractMigration
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
-    {
 
+    /**
+     * Migrate Up.
+     */
+    public function up()
+    {
+        $this->table('categories')
+            ->addColumn('category', 'string', array('limit' => 50))
+            ->addIndex(array('category'), array('unique' => true))
+            ->save();
     }
+
+    /**
+     * Migrate Down.
+     */
+    public function down()
+    {
+        $this->dropTable('categories');
+    }
+
 }
